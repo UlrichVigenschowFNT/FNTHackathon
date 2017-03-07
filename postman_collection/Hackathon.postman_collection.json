@@ -1,0 +1,53 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Hackathon",
+		"_postman_id": "c1fd7219-8217-e64c-958f-74c850244c29",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Fruits",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-catalog-1.0.0-SNAPSHOT/rs/fruits",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Fruits (Apfel)",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-catalog-1.0.0-SNAPSHOT/rs/fruits",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"uuid\":null,\n\t\"name\":\"Apfel\",\n\t\"color\":\"Rot\",\n\t\"species\":\"Elstar\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get dummy",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-catalog-1.0.0-SNAPSHOT/rs/fruits/dummyId",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
