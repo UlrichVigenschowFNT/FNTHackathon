@@ -6,8 +6,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -71,6 +73,26 @@ public class FruitResource {
 		
 		return Response.ok(fruitModel).build();
 	}
+	
+	@PUT
+	@Path("{uuid}")
+	public Response updateFruit(@PathParam("uuid") final String fruitUuid, FruitModel fruitModel){		
+		
+		// TODO update concrete fruit with controller
+		
+		final ResponseBuilder responseBuilder = Response.status(Status.OK);
+		responseBuilder.location(javax.ws.rs.core.UriBuilder.fromUri(uriInfo.getBaseUri()).path(FruitResource.class).path("/{id}").build(fruitUuid));
+		return responseBuilder.build();
+	}
+	
+	@DELETE
+	@Path("{uuid}")
+	public Response removeFruit(@PathParam("uuid") final String fruitUuid){
+		
+		// TODO delete the selected fruit
+		
+		return Response.status(Status.NO_CONTENT).build();		
+	}	
 	
 	@POST
 	public Response createFruit(FruitModel fruitModel){
