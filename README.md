@@ -83,16 +83,20 @@ For the devobst_catalog service there are two database tables needed:
 
 * T\_ID\_GENERATOR
 
-    GENERATOR_NAME VARCHAR(255)
-    ID_VALUE BIGINT    
+```
+GENERATOR_NAME VARCHAR(255)
+ID_VALUE BIGINT
+```    
 
 * T_FRUIT
 
-    ID BIGINT
-    UUID VARCHAR(36)
-    NAME VARCHAR(80)
-    COLOR VARCHAR(80)
-    SPECIES VARCHAR(80)
+```
+ID BIGINT
+UUID VARCHAR(36)
+NAME VARCHAR(80)
+COLOR VARCHAR(80)
+SPECIES VARCHAR(80)
+```
 
 
 #### 03 JPA JMS
