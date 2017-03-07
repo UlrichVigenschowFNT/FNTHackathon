@@ -31,9 +31,25 @@
 					<configuration>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
-				</plugin>				
+				</plugin>
+				<plugin>
+					<groupId>org.liquibase</groupId>
+					<artifactId>liquibase-maven-plugin</artifactId>
+					<version>3.4.2</version>
+					<dependencies>						
+						<dependency>
+							<groupId>org.postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<version>9.4.1208</version>
+						</dependency>						
+					</dependencies>
+					<configuration>
+						<propertyFile>target/classes/liquibase/liquibase.properties</propertyFile>
+						<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					</configuration>
+				</plugin>
 			</plugins>
-		</pluginManagement>		
+		</pluginManagement>
 	</build>
 
 	<!-- used dependencies -->

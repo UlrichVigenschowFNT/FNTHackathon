@@ -1,0 +1,38 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+	logicalFilePath="v1-0/00020-create-fruit-table.xml">	
+
+	<changeSet id="create-fruit-table" author="fnt">
+		<createTable tableName="T_FRUIT">
+			<column name="ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_FRUIT" />
+			</column>
+
+			<column name="UUID" type="VARCHAR(36)">
+				<constraints nullable="false" unique="true" />
+			</column>
+
+			<column name="NAME" type="VARCHAR(80)">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="COLOR" type="VARCHAR(80)">
+				<constraints nullable="true" />
+			</column>
+			
+			<column name="SPECIES" type="VARCHAR(80)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>	
+
+	<changeSet id="add-initial-data-for-fruit-to-id-generator" author="fnt">
+		<insert tableName="T_ID_GENERATOR">
+			<column name="GENERATOR_NAME" value="T_FRUIT" />
+			<column name="ID_VALUE" value="10000" />
+		</insert>
+	</changeSet>	
+
+</databaseChangeLog>
