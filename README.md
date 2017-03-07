@@ -78,6 +78,23 @@ HTTP Response with Status 204 No Content
 
 #### 02 Database
 Database Schema definition with Liquibase
+
+For the devobst_catalog service there are two database tables needed:
+
+* T\_ID\_GENERATOR
+
+    GENERATOR_NAME VARCHAR(255)
+    ID_VALUE BIGINT    
+
+* T_FRUIT
+
+    ID BIGINT
+    UUID VARCHAR(36)
+    NAME VARCHAR(80)
+    COLOR VARCHAR(80)
+    SPECIES VARCHAR(80)
+
+
 #### 03 JPA JMS
 Configuration of JPA/JMS with implementation of the JPA entities
 #### 04 Business Logic
