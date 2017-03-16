@@ -4,9 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(name="")
-public class FruitModel {
-	
-	
+public class FruitModel {	
 
 	@XmlElement(name="_uuid")
 	private String uuid;
