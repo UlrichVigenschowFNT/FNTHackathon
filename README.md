@@ -123,12 +123,12 @@ Hints on the implementation:
 * All methods need an existing transaction. This is forced by the *@TransactionAttribute(TransactionAttributeType.MANDATORY)*
 * The JPA Entity Manager can be injected using the *@PersistenceContext* annotation
 * Methods that are implemented (with rudimentary implementation):
-    * public Fruit getFruit(String fruitUuid)
-    * public Fruit createFruit(Fruit fruit)
-    * Fruit findFruit(final String fruitUuid)
-    * public List<Fruit> listFruits()
-    * public Fruit updateFruit(String fruitUuid,Fruit updatedFruit)
-    * public void removeFruit(String fruitUuid)	
+    * *public Fruit getFruit(String fruitUuid)*
+    * *public Fruit createFruit(Fruit fruit)*
+    * *Fruit findFruit(final String fruitUuid)*
+    * *public List<Fruit> listFruits()*
+    * *public Fruit updateFruit(String fruitUuid,Fruit updatedFruit)*
+    * *public void removeFruit(String fruitUuid)*	
 
 #### 04 Business Logic
 Implementation of the business logic
