@@ -102,7 +102,9 @@ public class FruitCtrl {
 		
 		em.detach(existingFruit);
 		
-		// TODO update logic
+		existingFruit.setColor(updatedFruit.getColor());
+		existingFruit.setName(updatedFruit.getName());
+		existingFruit.setSpecies(updatedFruit.getSpecies());
 		
 		return em.merge(existingFruit);
 	}

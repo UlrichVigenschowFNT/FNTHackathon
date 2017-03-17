@@ -1,7 +1,7 @@
 package com.fntsoftware.hackathon.devobst.catalog.boundary;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,10 +19,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import com.fntsoftware.hackathon.devobst.catalog.boundary.mapper.FruitModelMapper;
 import com.fntsoftware.hackathon.devobst.catalog.boundary.model.FruitModel;
+import com.fntsoftware.hackathon.devobst.catalog.control.FruitCtrl;
+import com.fntsoftware.hackathon.devobst.catalog.entity.Fruit;
 
 /**
  * Boundary Service for fruits. (REST)
@@ -36,25 +38,18 @@ public class FruitResource {
 	@Context
 	protected UriInfo uriInfo;
 	
+	@Inject
+	FruitModelMapper modelMapper;
+	
+	@Inject
+	FruitCtrl fruitCtrl;
+	
 	@GET
 	public Response listFruits(){
-		List<FruitModel> fruitModels = new ArrayList<>();
 		
-		FruitModel fruitModel = new FruitModel();
-		fruitModel.setUuid("dummyId");
-		fruitModel.setName("Apfel");
-		fruitModel.setSpecies("Elstar");		
-		fruitModel.setColor("Rot");
-		fruitModels.add(fruitModel);
+		List<Fruit> fruitList = fruitCtrl.listFruits();
 		
-		fruitModel = new FruitModel();
-		fruitModel.setUuid("dummyId2");
-		fruitModel.setName("Apfel");
-		fruitModel.setSpecies("Granny Smith");		
-		fruitModel.setColor("Grün");
-		fruitModels.add(fruitModel);
-		
-		// TODO get fruits from controller
+		List<FruitModel> fruitModels = fruitList.stream().map(p -> modelMapper.mapToModel(p)).collect(Collectors.toList());
 		
 		return Response.ok(new GenericEntity<List<FruitModel>>(fruitModels) {
 		}).build();
@@ -63,33 +58,31 @@ public class FruitResource {
 	@GET
 	@Path("{uuid}")
 	public Response getFruit(@PathParam("uuid") final String uuid){
-		FruitModel fruitModel = new FruitModel();
-		fruitModel.setUuid(uuid);
-		fruitModel.setName("Apfel");
-		fruitModel.setSpecies("Elstar");		
-		fruitModel.setColor("Rot");
 		
-		// TODO get concrete fruit from controller and remove the dummy
+		Fruit fruit = fruitCtrl.getFruit(uuid);		
 		
-		return Response.ok(fruitModel).build();
+		return Response.ok(modelMapper.mapToModel(fruit)).build();
 	}
 	
 	@PUT
 	@Path("{uuid}")
 	public Response updateFruit(@PathParam("uuid") final String fruitUuid, FruitModel fruitModel){		
 		
-		// TODO update concrete fruit with controller
+		Fruit fruit = modelMapper.mapToEntity(fruitModel);
+		
+		Fruit updatedFruit = fruitCtrl.updateFruit(fruitUuid, fruit);		
 		
 		final ResponseBuilder responseBuilder = Response.status(Status.OK);
-		responseBuilder.location(javax.ws.rs.core.UriBuilder.fromUri(uriInfo.getBaseUri()).path(FruitResource.class).path("/{id}").build(fruitUuid));
+		responseBuilder.location(javax.ws.rs.core.UriBuilder.fromUri(uriInfo.getBaseUri()).path(FruitResource.class).path("/{id}").build(updatedFruit.getUuid()));
+		
 		return responseBuilder.build();
 	}
 	
 	@DELETE
 	@Path("{uuid}")
-	public Response removeFruit(@PathParam("uuid") final String fruitUuid){
-		
-		// TODO delete the selected fruit
+	public Response removeFruit(@PathParam("uuid") final String fruitUuid){		
+
+		fruitCtrl.removeFruit(fruitUuid);
 		
 		return Response.status(Status.NO_CONTENT).build();		
 	}	
@@ -97,12 +90,12 @@ public class FruitResource {
 	@POST
 	public Response createFruit(FruitModel fruitModel){
 		
-		String fruitUuid = "dummyId";
+		Fruit fruit = modelMapper.mapToEntity(fruitModel);
 		
-		// TODO create the fruit
+		Fruit createdFruit = fruitCtrl.createFruit(fruit);			
 		
 		final ResponseBuilder responseBuilder = Response.status(Status.CREATED);
-		responseBuilder.location(javax.ws.rs.core.UriBuilder.fromUri(uriInfo.getBaseUri()).path(FruitResource.class).path("/{id}").build(fruitUuid));
+		responseBuilder.location(javax.ws.rs.core.UriBuilder.fromUri(uriInfo.getBaseUri()).path(FruitResource.class).path("/{id}").build(createdFruit.getUuid()));
 		return responseBuilder.build();				
 	}
 
