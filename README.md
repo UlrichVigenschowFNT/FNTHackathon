@@ -133,4 +133,43 @@ Hints on the implementation:
 #### 04 Business Logic
 Implementation of the business logic
 
+**Controller: Update Fruit**
 
+The attributes *color*,*name* and *species* are updateable.
+
+Hints on the implementation:
+
+* Get JPA entity and detach, update the attributes and merge again.
+* detach - merge is not needed at this point, this is helpful for a future optimistic locking strategy.
+
+**Event notfications**
+
+There should be events triggered if the fruit was created, updated or deleted:
+
+JMSType:
+
+* FRUIT_CREATED
+* FRUIT_UPDATED
+* FRUIT_DELETED
+
+Text content example for created or updated: 
+
+
+	{
+	"name":"Apple",
+	"color":"Green",
+	"species":"Granny Smith",
+	"uuid":"2bafdc45-6d83-47c8-b45e-83309fbda752"}
+	}
+
+In case of delete, just send the uuid:
+
+	2bafdc45-6d83-47c8-b45e-83309fbda752
+	
+Hints on the implementation:
+
+* Interface *FruitPublisher* with methods for created, updated and deleted
+* Implementation under *com.fntsoftware.hackathon.devobst.catalog.control.esi* in class *FruitPublisherImpl*
+    * Inject resources with *@Resource(name="devobstConnectionFactory")* and *@Resource(name="devobstTopic")*
+* Class *FruitEventWriter* is responsible to write the JSON text for the event body
+* A *glassfish-web.xml* is required that references the resource and the message destination
