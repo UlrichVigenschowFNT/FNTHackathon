@@ -6,11 +6,13 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.fntsoftware.hackathon.devobst.catalog.control.esi.FruitPublisher;
 import com.fntsoftware.hackathon.devobst.catalog.entity.Fruit;
 
 /**
@@ -24,6 +26,9 @@ public class FruitCtrl {
 	@PersistenceContext(unitName = "devobst-catalog-persistence-unit")
 	EntityManager em;
 	
+	@Inject
+	FruitPublisher fruitPublisher;
+	
 	/**
 	 * Creates a new fruit
 	 * 
@@ -33,6 +38,9 @@ public class FruitCtrl {
 	 */
 	public Fruit createFruit(Fruit fruit){
 		em.persist(fruit);
+		
+		fruitPublisher.publishCreate(fruit);
+		
 		return fruit;
 	}
 	
@@ -106,7 +114,12 @@ public class FruitCtrl {
 		existingFruit.setName(updatedFruit.getName());
 		existingFruit.setSpecies(updatedFruit.getSpecies());
 		
-		return em.merge(existingFruit);
+		
+		Fruit mergedFruit = em.merge(existingFruit);
+		
+		fruitPublisher.publishUpdate(mergedFruit);
+		
+		return mergedFruit;
 	}
 	
 	
@@ -118,5 +131,7 @@ public class FruitCtrl {
 	public void removeFruit(String fruitUuid){
 		final Fruit fruitToDelete = getFruit(fruitUuid);
 		em.remove(fruitToDelete);
+		
+		fruitPublisher.publishDelete(fruitUuid);
 	}
 }
