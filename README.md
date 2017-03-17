@@ -101,6 +101,35 @@ SPECIES VARCHAR(80)
 
 #### 03 JPA JMS
 Configuration of JPA/JMS with implementation of the JPA entities
+
+**JPA Entity: Fruit**
+
+The implementation of the Fruit JPA Entity is done in the package *com.fntsoftware.hackathon.devobst.catalog.entity* and just named *Fruit*.
+
+Hints on the implementation:
+
+* For the UUID an entity listener (*@EntityListeners*) that creates a new uuid on *prepersist* is used
+* A named query *Fruit.findByUUID* is prepared
+* A named query *Fruit.findAll* is prepared
+* For internal id generation a table generator is used (used annotations: *@TableGenerator*, *@GeneratedValue*, *@Id*) 
+
+**Controller: FruitCtrl**
+
+The implementation of the fruit controller is done in the package *com.fntsoftware.hackathon.devobst.catalog.control* and named *FruitCtrl*. 
+
+Hints on the implementation:
+
+* The controller is implemented as stateless bean (*@Stateless*)
+* All methods need an existing transaction. This is forced by the *@TransactionAttribute(TransactionAttributeType.MANDATORY)*
+* The JPA Entity Manager can be injected using the *@PersistenceContext* annotation
+* Methods that are implemented (with rudimentary implementation):
+    * public Fruit getFruit(String fruitUuid)
+    * public Fruit createFruit(Fruit fruit)
+    * Fruit findFruit(final String fruitUuid)
+    * public List<Fruit> listFruits()
+    * public Fruit updateFruit(String fruitUuid,Fruit updatedFruit)
+    * public void removeFruit(String fruitUuid)	
+
 #### 04 Business Logic
 Implementation of the business logic
 
