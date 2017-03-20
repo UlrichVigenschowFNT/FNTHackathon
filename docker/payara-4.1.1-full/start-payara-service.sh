@@ -9,8 +9,6 @@
 #!/bin/bash
 set -e
 
-cd /usr/share/payara41/bin/
-
 ./asadmin --port 8080 start-domain
 
 ./asadmin change-admin-password
