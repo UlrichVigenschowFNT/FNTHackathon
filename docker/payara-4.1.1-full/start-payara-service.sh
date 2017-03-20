@@ -1,8 +1,8 @@
 ###########################################
 #
-# Start domain via asadmin, create
-# database-connection-pool and deploy
-# webapplication. After script do sleep
+# Start domain via asadmin, change admin 
+# password and enable secure remote
+# admin-console. After script do sleep
 # in a endless loop to keep service alive.
 #
 ###########################################
