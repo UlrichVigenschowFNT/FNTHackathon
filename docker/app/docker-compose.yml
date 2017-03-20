@@ -1,0 +1,43 @@
+##################################################
+#
+# Compose-File for start up payara-4-full
+# application server with database,
+# using a postgresql conainer with postgres
+# default image from dockerhub.
+#
+##################################################
+
+version: "2"
+
+services:
+
+    postgres-for-payara:
+        image: postgres:9.6
+        container_name: postgres-for-payara
+        environment:
+            - POSTGRES_USER=devobst_catalog
+            - POSTGRES_PASSWORD=devobst_catalog
+        networks:
+            - net
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+    payara-4:
+        image: hackathon-ubuntu-16.04-java-8-jdk-payara-4.1.1-app
+        container_name: app-on-payara
+        environment:
+            - ADMIN_USER=admin
+            - ADMIN_PASSWORD=password
+        networks:
+            - net
+        ports:
+            - "8080:8080"
+            - "4848:4848"
+        depends_on:
+            - postgres-for-payara
+
+networks:
+    net:
+
+volumes:
+    postgres_data:
