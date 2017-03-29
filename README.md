@@ -159,7 +159,7 @@ Text content example for created or updated:
 	"name":"Apple",
 	"color":"Green",
 	"species":"Granny Smith",
-	"uuid":"2bafdc45-6d83-47c8-b45e-83309fbda752"}
+	"uuid":"2bafdc45-6d83-47c8-b45e-83309fbda752"
 	}
 
 In case of delete, just send the uuid:
