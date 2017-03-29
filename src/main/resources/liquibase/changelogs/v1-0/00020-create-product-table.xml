@@ -16,6 +16,10 @@
 
 			<column name="NAME" type="VARCHAR(80)">
 				<constraints nullable="false" />
+			</column>
+			
+			<column name="ACTIVE" type="BOOLEAN">
+				<constraints nullable="false" />
 			</column>			
 		</createTable>
 	</changeSet>	
