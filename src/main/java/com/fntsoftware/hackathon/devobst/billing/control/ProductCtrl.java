@@ -1,5 +1,8 @@
 package com.fntsoftware.hackathon.devobst.billing.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -35,6 +38,45 @@ public class ProductCtrl {
 		}
 
 		return product;
+	}
+
+	/**
+	 * Gets the product identified by it's uuid
+	 * 
+	 * @param productUuid
+	 *            uuid of product
+	 * 
+	 * @return product
+	 * @throws IllegalArgumentException
+	 *             if productUuid doesn't exist
+	 */
+	public Product getProduct(String productUuid) {
+
+		final Product product = findProduct(productUuid);
+		if (product == null) {
+			// in real life this should be a more precise exception
+			throw new IllegalArgumentException();
+		}
+
+		return product;
+	}
+
+	/**
+	 * Returns all products
+	 * 
+	 * @return list of products
+	 */
+	public List<Product> listProducts() {
+		final TypedQuery<Product> findAll = em.createNamedQuery(Product.FIND_ALL, Product.class);
+
+		List<Product> products = null;
+		try {
+			products = findAll.getResultList();
+		} catch (final NoResultException e) {
+			return new ArrayList<>();
+		}
+
+		return products;
 	}
 
 	public void registerNewProduct(String uuid, String name) {

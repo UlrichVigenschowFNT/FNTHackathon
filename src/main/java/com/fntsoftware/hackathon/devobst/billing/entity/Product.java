@@ -13,12 +13,15 @@ import javax.persistence.TableGenerator;
 
 @Entity
 @Table(name = "T_PRODUCT")
-@NamedQueries({ @NamedQuery(name = Product.FIND_BY_UUID, query = "SELECT e FROM Product e WHERE e.uuid = :uuid") })
+@NamedQueries({ @NamedQuery(name = Product.FIND_BY_UUID, query = "SELECT e FROM Product e WHERE e.uuid = :uuid"),
+		@NamedQuery(name = Product.FIND_ALL, query = "SELECT e FROM Product e") })
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 7844035896862409459L;
 
-	public static final String FIND_BY_UUID = "Fruit.findByUUID";
+	public static final String FIND_BY_UUID = "Product.findByUUID";
+
+	public static final String FIND_ALL = "Product.findAll";
 
 	@Id
 	@TableGenerator(name = "T_PRODUCT", table = "T_ID_GENERATOR", pkColumnName = "GENERATOR_NAME", valueColumnName = "ID_VALUE")
