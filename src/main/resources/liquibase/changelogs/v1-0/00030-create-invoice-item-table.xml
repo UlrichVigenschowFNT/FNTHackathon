@@ -1,0 +1,38 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+	logicalFilePath="v1-0/00030-create-invoice-item-table.xml">	
+
+	<changeSet id="create-invoice-item-table" author="fnt">
+		<createTable tableName="T_INVOICE_ITEM">
+			<column name="ID" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVOICE_ITEM" />
+			</column>			
+
+			<column name="AMOUNT" type="NUMERIC">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="PRICE" type="NUMERIC">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="PRODUCT_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>			
+			
+			<column name="INVOICE_ID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>	
+
+	<changeSet id="add-initial-data-for-invoice-item-to-id-generator" author="fnt">
+		<insert tableName="T_ID_GENERATOR">
+			<column name="GENERATOR_NAME" value="T_INVOICE_ITEM" />
+			<column name="ID_VALUE" value="10000" />
+		</insert>
+	</changeSet>	
+
+</databaseChangeLog>

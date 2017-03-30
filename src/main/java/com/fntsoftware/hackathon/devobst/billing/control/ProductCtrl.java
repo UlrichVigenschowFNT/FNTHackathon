@@ -62,6 +62,25 @@ public class ProductCtrl {
 	}
 
 	/**
+	 * Gets a active product
+	 * 
+	 * @param productUuid
+	 * @return product
+	 * @throws IllegalArgumentException
+	 *             if product doesn't exist or is not active
+	 */
+	public Product getActiveProduct(String productUuid) {
+		Product product = getProduct(productUuid);
+
+		if (!product.getActive().booleanValue()) {
+			// in real life this should be a more precise exception
+			throw new IllegalArgumentException();
+		}
+
+		return product;
+	}
+
+	/**
 	 * Returns all products
 	 * 
 	 * @return list of products

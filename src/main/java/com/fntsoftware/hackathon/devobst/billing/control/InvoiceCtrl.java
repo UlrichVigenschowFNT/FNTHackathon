@@ -94,7 +94,7 @@ public class InvoiceCtrl {
 			InvoiceItem invoiceItem = new InvoiceItem();
 			invoiceItem.setAmount(invoiceItemModel.getAmount());
 			invoiceItem.setPrice(invoiceItemModel.getPrice());
-			invoiceItem.setProduct(productCtrl.getProduct(invoiceItemModel.getProductUuid()));
+			invoiceItem.setProduct(productCtrl.getActiveProduct(invoiceItemModel.getProductUuid()));
 			invoice.addInvoiceItem(invoiceItem);
 		});
 
