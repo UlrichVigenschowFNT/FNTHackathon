@@ -1,0 +1,38 @@
+FROM java:8-jdk-alpine
+
+# environment variables
+ENV OPENMQ_VERSION 5.1.1
+ENV OPENMQ_ARCHIVE openmq5_1_1-binary-linux.zip
+ENV OPENMQ_LOCATION /opt/openmq
+ENV OPENMQ_BIN ${OPENMQ_LOCATION}/MessageQueue${OPENMQ_VERSION}/mq/bin
+
+USER root
+
+# install bash on alpine linux
+RUN apk add --no-cache --update bash
+
+# create user openmq with home directory
+RUN adduser -D -h /home/openmq -u 1001 -s /bin/bash openmq \
+   && mkdir -p ${OPENMQ_LOCATION} \
+   && chown -R openmq:openmq ${OPENMQ_LOCATION} 
+
+COPY docker-entrypoint.sh /opt/docker-entrypoint/docker-entrypoint.sh
+RUN chmod +x /opt/docker-entrypoint/docker-entrypoint.sh \
+ && chown -R openmq:openmq /opt/docker-entrypoint
+
+# copy the openmq zip file from actual directory into image
+COPY ${OPENMQ_ARCHIVE} $OPENMQ_LOCATION}/${OPENMQ_ARCHIVE}
+
+# switch to openmq
+USER openmq
+
+# download and unzip openmq
+RUN cd ${OPENMQ_LOCATION} \
+   && unzip $OPENMQ_ARCHIVE \
+   && rm $OPENMQ_ARCHIVE \
+   && echo imq.imqcmd.password=admin > ${OPENMQ_LOCATION}/passwords.txt
+
+# expose broker port
+EXPOSE 7676
+	
+ENTRYPOINT ["/opt/docker-entrypoint/docker-entrypoint.sh"]
