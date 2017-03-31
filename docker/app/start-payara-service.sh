@@ -29,6 +29,11 @@ echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD >> pwdfile
 ./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false delete-jms-host default_JMS_host
 ./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-jms-host --mqhost $MQHOST --mqport $MQPORT --mquser admin --mqpassword admin default_JMS_host
 
+#Topic
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-admin-object --restype javax.jms.Topic --raname jmsra --property Name=devobst jms/topic/devobst
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-connector-connection-pool --raname jmsra --maxpoolsize 250 --steadypoolsize 1 --connectiondefinition javax.jms.TopicConnectionFactory --transactionsupport XATransaction jms/topic-connection-factory/devobst-Connection-Pool
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-connector-resource --poolname jms/topic-connection-factory/devobst-Connection-Pool jms/topic-connection-factory/devobst
+
 ./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false restart-domain --debug=true
 
 ./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false deploy /webapps/*.war
