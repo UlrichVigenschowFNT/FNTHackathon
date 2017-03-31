@@ -18,8 +18,7 @@ import com.fntsoftware.hackathon.devobst.billing.control.ProductNewTransactionCt
  * Message consumer for fruit events
  *
  */
-@MessageDriven(activationConfig = {
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "devobstTopic"),
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "devobst"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
 		@ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable"),
 		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = FruitSubscriber.MESSAGE_SELECTOR),
