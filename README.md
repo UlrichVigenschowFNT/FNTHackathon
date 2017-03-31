@@ -7,7 +7,7 @@ FNT Hackathon - 01-APR-2017
 #### 01 REST
 Implementation of the REST interface with JAX-RS.
 
-The REST interface has three methods:
+The REST interface has these methods:
   
 *  Create fruit
 
