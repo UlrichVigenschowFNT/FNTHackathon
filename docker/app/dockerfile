@@ -12,5 +12,8 @@ MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
 # Copy webapp
 COPY app /webapps
 
+# copy actual startup file
+COPY start-payara-service.sh /usr/share/payara41/bin/start-payara-service.sh
+
 # Start Service and deploy application
 CMD ./start-payara-service.sh

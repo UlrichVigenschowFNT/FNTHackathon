@@ -20,6 +20,7 @@ ENV DB_SERVER_NAME postgres-for-payara
 ENV DB_PORT 5432
 ENV DB_NAME devobst_catalog
 ENV CONNECTION_POOLNAME devobst_catalog
+ENV CONNECTION_RESOURCE_NAME jdbc/devobst-catalog
 ENV MQHOST localhost
 ENV MQPORT 7676
 
