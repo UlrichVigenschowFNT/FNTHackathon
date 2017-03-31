@@ -12,26 +12,26 @@ set -e
 
 ./asadmin --port 8080 start-domain --debug
 
-./asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=${DB_PORT}:password=${DB_PASSWORD}:user=${DB_USER}:serverName=${DB_SERVER_NAME}:databaseName=${DB_NAME} --ping true ${CONNECTION_POOLNAME}
-
-./asadmin deploy /webapps/*.war
-
 # create temporary password files
-echo 'AS_ADMIN_PASSWORD=\n\AS_ADMIN_NEWPASSWORD='$ADMIN_PASSWORD'\nEOF\n' >> tmpfile
-echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD'\nEOF\n' >> pwdfile
+echo 'AS_ADMIN_PASSWORD=' >> tmpfile
+echo 'AS_ADMIN_NEWPASSWORD='$ADMIN_PASSWORD >> tmpfile
+echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD >> pwdfile
 
-./asadmin -u $ADMIN_USER --passwordfile tmpfile change-admin-password
-./asadmin -u $ADMIN_USER --passwordfile pwdfile enable-secure-admin
+./asadmin -u $ADMIN_USER --passwordfile tmpfile --interactive=false change-admin-password
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false enable-secure-admin
+
+# JDBC
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=${DB_PORT}:password=${DB_PASSWORD}:user=${DB_USER}:serverName=${DB_SERVER_NAME}:databaseName=${DB_NAME} --ping true ${CONNECTION_POOLNAME}
 
 # JMS
-./asadmin -u $ADMIN_USER --passwordfile pwdfile set server.jms-service.type=REMOTE
-./asadmin -u $ADMIN_USER --passwordfile pwdfile delete-jms-host default_JMS_host
-./asadmin -u $ADMIN_USER --passwordfile pwdfile create-jms-host --mqhost $MQHOST --mqport $MQPORT --mquser admin --mqpassword admin default_JMS_host
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false set server.jms-service.type=REMOTE
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false delete-jms-host default_JMS_host
+./asadmin -u $ADMIN_USER --passwordfile pwdfile --interactive=false create-jms-host --mqhost $MQHOST --mqport $MQPORT --mquser admin --mqpassword admin default_JMS_host
 
 # remove password files
 rm tmpfile pwdfile
 
-./asadmin restart-domain --debug
+./asadmin restart-domain --debug=true
 
 while true
 do
