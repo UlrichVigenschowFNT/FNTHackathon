@@ -1,0 +1,75 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Hackathon - DevObst Billing",
+		"_postman_id": "7e404cd7-cc56-53a1-f958-ee3b5838f242",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Products",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/products",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "List Invoices",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Register Invoice",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"billingDate\":\"2017-04-01T08:25:43-05:00\",\n  \"invoiceItems\":[\n  \t {\n  \t \t\"amount\":5,\n  \t \t\"price\":1.99,\n  \t \t\"productUuid\":\"a155784f-db71-4c99-9b99-db359ca5f000\"\n  \t }\n  ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invoice",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices/4fe00dcb-0357-49dc-a42e-2be18ae80bcb",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "List Invoices",
+			"request": {
+				"url": "http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

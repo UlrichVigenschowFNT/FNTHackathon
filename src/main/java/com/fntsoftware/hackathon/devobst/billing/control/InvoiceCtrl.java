@@ -90,15 +90,19 @@ public class InvoiceCtrl {
 		Invoice invoice = new Invoice();
 		invoice.setBillingDate(invoiceModel.getBillingDate());
 
+		em.persist(invoice);
+
 		invoiceModel.getInvoiceItems().forEach(invoiceItemModel -> {
 			InvoiceItem invoiceItem = new InvoiceItem();
 			invoiceItem.setAmount(invoiceItemModel.getAmount());
 			invoiceItem.setPrice(invoiceItemModel.getPrice());
 			invoiceItem.setProduct(productCtrl.getActiveProduct(invoiceItemModel.getProductUuid()));
+
+			em.persist(invoiceItem);
+
 			invoice.addInvoiceItem(invoiceItem);
 		});
 
-		em.persist(invoice);
 		return invoice;
 	}
 
