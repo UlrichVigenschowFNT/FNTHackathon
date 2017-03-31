@@ -11,9 +11,9 @@ version: "2"
 
 services:
 
-    postgres-for-payara:
+    postgres-for-catalog:
         image: postgres:9.6
-        container_name: postgres-for-payara
+        container_name: postgres-for-catalog
         environment:
             - POSTGRES_USER=devobst_catalog
             - POSTGRES_PASSWORD=devobst_catalog
@@ -23,10 +23,28 @@ services:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql/data
+        depends_on:
+            - devobst_catalog_openmq
 
+    devobst_catalog_openmq:
+        image: hackathon-ubuntu-16.04-java-8-jdk-openmq-5.1.1
+        container_name: devobst_catalog_openmq
+        environment:
+            - TOPIC_NAME=devobst
+        networks:
+            - net
+        ports:
+            - "7676:7676"
+            - "31000:31000"
+            - "34000:34000"
+            - "36000:36000"
+            - "43000:43000"
+        volumes:
+            - openmq_data:/opt/openmq/MessageQueue5.1.1/var/mq/instances/imqbroker
+                    
     devobst-catalog:
         image: hackathon-ubuntu-16.04-java-8-jdk-payara-4.1.1-app
-        container_name: app-on-payara
+        container_name: devobst_catalog
         environment:
             - ADMIN_USER=admin
             - ADMIN_PASSWORD=password
@@ -36,16 +54,19 @@ services:
             - DB_PORT=5432
             - DB_NAME=devobst_catalog
             - CONNECTION_POOLNAME=devobst_catalog
+            - MQHOST=devobst_catalog_openmq
+            - MQPORT=7676
         networks:
             - net
         ports:
             - "8080:8080"
             - "4848:4848"
         depends_on:
-            - postgres-for-payara
+            - postgres-for-catalog
 
 networks:
     net:
 
 volumes:
     postgres_data:
+    openmq_data:
