@@ -38,6 +38,7 @@ services:
             - DB_PORT=5432
             - DB_NAME=devobst_catalog
             - CONNECTION_POOLNAME=devobst_catalog
+            - CONNECTION_RESOURCE_NAME=jdbc/devobst-catalog
             - MQHOST=devobst-openmq
             - MQPORT=7676
         networks:
@@ -76,6 +77,7 @@ services:
             - DB_PORT=5432
             - DB_NAME=devobst_billing
             - CONNECTION_POOLNAME=devobst_billing
+            - CONNECTION_RESOURCE_NAME=jdbc/devobst-billing
             - MQHOST=devobst-openmq
             - MQPORT=7676
         networks:
