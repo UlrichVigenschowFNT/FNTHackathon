@@ -6,7 +6,6 @@
 	version="2.1">
 	<persistence-unit name="devobst-catalog-persistence-unit" transaction-type="JTA">
 		<jta-data-source>jdbc/devobst-catalog</jta-data-source>
-		<mapping-file>META-INF/orm.xml</mapping-file>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<shared-cache-mode>NONE</shared-cache-mode>		
 	</persistence-unit>
