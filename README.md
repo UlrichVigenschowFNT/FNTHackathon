@@ -16,9 +16,9 @@ The REST interface has these methods:
 
 *  List products
 
-URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/products
-JSON payload: none
-HTTP Response with Status 200 OK and JSON body
+URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/products   
+JSON payload: none  
+HTTP Response with Status 200 OK and JSON body  
     
     [
      {
@@ -35,8 +35,8 @@ HTTP Response with Status 200 OK and JSON body
 
 * Register invoice
 
-URL example: POST http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices
-JSON payload: 
+URL example: POST http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices  
+JSON payload:   
 
      {
       "billingDate":"2017-04-01T08:25:43-05:00",
@@ -49,14 +49,14 @@ JSON payload:
       ]
     }
     
-HTTP Response with Status 201 Created and Location Header content, e.g.
+HTTP Response with Status 201 Created and Location Header content, e.g.  
 http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices/4fe00dcb-0357-49dc-a42e-2be18ae80bcb
 
 * List Invoices
 
-URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices
-JSON payload: none
-HTTP Response with Status 200 OK and JSON body
+URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices  
+JSON payload: none  
+HTTP Response with Status 200 OK and JSON body  
 
     [     
      {
@@ -90,9 +90,9 @@ HTTP Response with Status 200 OK and JSON body
     
 * Get a specific invoice
 
-URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices/4fe00dcb-0357-49dc-a42e-2be18ae80bcb
-JSON payload: none
-HTTP Response with Status 200 OK and JSON body
+URL example: GET http://localhost:8080/dev-obst-billing-1.0.0-SNAPSHOT/rs/invoices/4fe00dcb-0357-49dc-a42e-2be18ae80bcb  
+JSON payload: none  
+HTTP Response with Status 200 OK and JSON body  
       
     {
      "_uuid": "4fe00dcb-0357-49dc-a42e-2be18ae80bcb",
