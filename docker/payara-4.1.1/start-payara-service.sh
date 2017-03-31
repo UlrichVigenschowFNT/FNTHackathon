@@ -10,7 +10,7 @@
 #!/bin/bash
 set -e
 
-./asadmin --port 8080 start-domain
+./asadmin --port 8080 start-domain --debug
 
 ./asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=${DB_PORT}:password=${DB_PASSWORD}:user=${DB_USER}:serverName=${DB_SERVER_NAME}:databaseName=${DB_NAME} --ping true ${CONNECTION_POOLNAME}
 
@@ -31,7 +31,7 @@ echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD'\nEOF\n' >> pwdfile
 # remove password files
 rm tmpfile pwdfile
 
-./asadmin restart-domain
+./asadmin restart-domain --debug
 
 while true
 do
