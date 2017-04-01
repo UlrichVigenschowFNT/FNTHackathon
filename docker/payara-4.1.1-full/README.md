@@ -16,5 +16,3 @@ docker run -it -p 8080:8080 -p 4848:4848 --name payara hackathon-ubuntu-16.04-ja
 
 admin-name: admin
 admin-default-password: empty-string
-
-Test 123
