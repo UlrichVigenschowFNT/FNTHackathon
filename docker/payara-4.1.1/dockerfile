@@ -1,0 +1,28 @@
+FROM hackathon-ubuntu-16.04-java-8-jdk
+
+MAINTAINER Andre Hofmeister <andre.hofmeister@fntsoftware.com>
+
+# Copy Payara-Server and start/deploy script
+COPY payara41 /usr/share/payara41
+COPY start-payara-service.sh /usr/share/payara41/bin/start-payara-service.sh
+
+# Installation
+RUN apt-get -y update \
+    && apt-get -y upgrade \    
+    && mkdir -p /home/payara/.gfclient \
+    && addgroup --system payara \
+    && useradd --system -s /bin/bash -g payara payara \
+    && chown -R payara:payara /usr/share/payara41 \
+    && chown -R payara:payara /home/payara \
+    && chmod +x /usr/share/payara41/bin/start-payara-service.sh \
+
+    # Configuartion
+    && echo "payara soft nofile 32768" >> /etc/security/limits.conf \
+    && echo "payara hard nofile 65536" >> /etc/security/limits.conf
+
+# Switch to created user and working directory
+USER payara
+WORKDIR /usr/share/payara41/bin
+
+# Start Payara-Service
+CMD ./start-payara-service.sh
