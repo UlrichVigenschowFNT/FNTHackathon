@@ -4,3 +4,4 @@
 /docker/payara/jdbc
 /docker/payara/app
 /docker/payara/openmq5_1_1-binary-linux.zip
+.settings
