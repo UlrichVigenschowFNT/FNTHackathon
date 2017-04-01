@@ -7,7 +7,7 @@
 
 FROM ubuntu
 
-MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
+MAINTAINER Fabian Hauser <fabian.hauser@fntsoftware.com>
 
 # Copy Payara-Server and start/deploy script
 COPY payara41 /usr/share/payara41
