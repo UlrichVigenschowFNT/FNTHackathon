@@ -92,7 +92,7 @@ public class FruitResource {
 		// TODO delete the selected fruit
 		
 		return Response.status(Status.NO_CONTENT).build();		
-	}	
+	}
 	
 	@POST
 	public Response createFruit(FruitModel fruitModel){

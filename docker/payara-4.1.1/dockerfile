@@ -23,6 +23,3 @@ RUN apt-get -y update \
 # Switch to created user and working directory
 USER payara
 WORKDIR /usr/share/payara41/bin
-
-# Start Payara-Service
-CMD ./start-payara-service.sh
