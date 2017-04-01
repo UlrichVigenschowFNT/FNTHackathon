@@ -7,7 +7,7 @@
 
 FROM ubuntu:16.04
 
-MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
+MAINTAINER Thomas Krauss <thomas.krauss@fntsoftware.com>
 
 RUN apt-get -y update \
     && apt-get -y upgrade \
