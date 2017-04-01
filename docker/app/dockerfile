@@ -1,0 +1,16 @@
+##############################
+#
+# Web-Application - Image
+# Based on Payara-full-Image
+#
+##############################
+
+FROM hackathon-ubuntu-16.04-java-8-jdk-payara-4.1.1
+
+MAINTAINER Andreas Stegmaier <andreas.stegmaier@fntsoftware.com>
+
+# Copy webapp
+COPY app /webapps/
+
+# Start Service and deploy application
+CMD ./start-payara-service.sh
