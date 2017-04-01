@@ -1,0 +1,20 @@
+########################################
+#
+# Ubuntu 16.04 - Image with OpenJDK 8
+# Based on Ubuntu 16.04 from Docker Hub
+#
+########################################
+
+FROM ubuntu:16.04
+
+MAINTAINER Klaus Atzmann <klaus-peter.atzmann@fntsoftware.com>
+
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get -y install tree vim curl unzip \
+    && apt-get -y install openjdk-8-jdk openjdk-8-demo \
+                          openjdk-8-doc openjdk-8-jre-headless \
+                          openjdk-8-source
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV PATH $PATH:$JAVA_HOME/bin
