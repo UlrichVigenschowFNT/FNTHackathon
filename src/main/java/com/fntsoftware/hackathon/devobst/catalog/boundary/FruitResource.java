@@ -2,6 +2,7 @@ package com.fntsoftware.hackathon.devobst.catalog.boundary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -40,15 +41,18 @@ public class FruitResource {
 	public Response listFruits(){
 		List<FruitModel> fruitModels = new ArrayList<>();
 		
+		UUID uuid1 = UUID.randomUUID();
+		UUID uuid2 = UUID.randomUUID();
+		
 		FruitModel fruitModel = new FruitModel();
-		fruitModel.setUuid("dummyId");
+		fruitModel.setUuid(uuid1.toString());
 		fruitModel.setName("Apfel");
 		fruitModel.setSpecies("Elstar");		
 		fruitModel.setColor("Rot");
 		fruitModels.add(fruitModel);
 		
 		fruitModel = new FruitModel();
-		fruitModel.setUuid("dummyId2");
+		fruitModel.setUuid(uuid2.toString());
 		fruitModel.setName("Apfel");
 		fruitModel.setSpecies("Granny Smith");		
 		fruitModel.setColor("Grün");
