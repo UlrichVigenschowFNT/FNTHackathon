@@ -7,8 +7,6 @@
 #
 ###########################################
 #!/bin/bash
-set -e
-
 ./asadmin --port 8080 start-domain
 
 ./asadmin change-admin-password
