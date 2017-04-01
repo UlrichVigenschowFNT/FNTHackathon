@@ -14,8 +14,9 @@ set -e
 ./asadmin deploy /webapps/*.war
 
 # create temporary password files
-echo 'AS_ADMIN_PASSWORD=\n\AS_ADMIN_NEWPASSWORD='$ADMIN_PASSWORD'\nEOF\n' >> tmpfile
-echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD'\nEOF\n' >> pwdfile
+echo 'AS_ADMIN_PASSWORD=' >> tmpfile
+echo 'AS_ADMIN_NEWPASSWORD='$ADMIN_PASSWORD >> tmpfile
+echo 'AS_ADMIN_PASSWORD='$ADMIN_PASSWORD >> pwdfile
 
 ./asadmin -u $ADMIN_USER --passwordfile tmpfile change-admin-password
 
