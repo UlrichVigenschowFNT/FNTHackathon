@@ -21,7 +21,8 @@ RUN apt-get -y update \
     && useradd --system -s /bin/bash -g payara payara \
     && chown -R payara:payara /usr/share/payara41 \
     && chown -R payara:payara /home/payara \
-    && chmod +x /usr/share/payara41/bin/start-payara-service.sh \
+	&& chmod +x /usr/share/payara41/bin/start-payara-service.sh \    
+	&& chmod +x /usr/share/payara41/bin/asadmin \
 
     # Configuartion
     && echo "payara soft nofile 32768" >> /etc/security/limits.conf \
