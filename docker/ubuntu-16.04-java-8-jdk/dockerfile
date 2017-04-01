@@ -1,35 +1,20 @@
-##########################################
+########################################
 #
-# Payara 4 Full - Image (4.1.1)
-# Based on Java 8
+# Ubuntu 16.04 - Image with OpenJDK 8
+# Based on Ubuntu 16.04 from Docker Hub
 #
-##########################################
+########################################
 
-FROM hackathon-ubuntu-16.04-java-8-jdk
+FROM ubuntu:16.04
 
 MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
 
-# Copy Payara-Server and start/deploy script
-COPY payara41 /usr/share/payara41
-COPY start-payara-service.sh /usr/share/payara41/bin/start-payara-service.sh
-
-# Installation
 RUN apt-get -y update \
-    && apt-get -y upgrade \    
-    && mkdir -p /home/payara/.gfclient \
-    && addgroup --system payara \
-    && useradd --system -s /bin/bash -g payara payara \
-    && chown -R payara:payara /usr/share/payara41 \
-    && chown -R payara:payara /home/payara \
-    && chmod +x /usr/share/payara41/bin/start-payara-service.sh \
+    && apt-get -y upgrade \
+    && apt-get -y install tree vim curl unzip \
+    && apt-get -y install openjdk-8-jdk openjdk-8-demo \
+                          openjdk-8-doc openjdk-8-jre-headless \
+                          openjdk-8-source
 
-    # Configuartion
-    && echo "payara soft nofile 32768" >> /etc/security/limits.conf \
-    && echo "payara hard nofile 65536" >> /etc/security/limits.conf
-
-# Switch to created user and working directory
-USER payara
-WORKDIR /usr/share/payara41/bin
-
-# Start Payara-Service
-CMD ./start-payara-service.sh
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV PATH $PATH:$JAVA_HOME/bin
