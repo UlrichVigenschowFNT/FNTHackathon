@@ -7,7 +7,7 @@
 #
 ###########################################
 #!/bin/bash
-set -e
+# set -e
 
 ./asadmin --port 8080 start-domain
 
