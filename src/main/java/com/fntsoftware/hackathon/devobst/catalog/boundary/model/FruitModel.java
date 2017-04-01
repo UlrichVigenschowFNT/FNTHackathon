@@ -3,18 +3,16 @@ package com.fntsoftware.hackathon.devobst.catalog.boundary.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name="")
+@XmlType(name = "")
 public class FruitModel {
-	
-	
 
-	@XmlElement(name="_uuid")
+	@XmlElement(name = "_uuid")
 	private String uuid;
-	
+
 	private String name;
-	
+
 	private String color;
-	
+
 	private String species;
 
 	public String getUuid() {
@@ -40,7 +38,7 @@ public class FruitModel {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
 	public String getSpecies() {
 		return species;
 	}
