@@ -1,0 +1,47 @@
+###########################################
+#
+# OpenMQ 5.1.1 - Image
+# Based on Alpine-Java-Image from Dockerhub
+#
+###########################################
+
+FROM java:8-jdk-alpine
+
+MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
+
+# environment variables
+ENV OPENMQ_VERSION 5.1.1
+ENV OPENMQ_ARCHIVE openmq5_1_1-binary-linux.zip
+ENV OPENMQ_LOCATION /usr/local/openmq
+ENV OPENMQ_BIN ${OPENMQ_LOCATION}/MessageQueue${OPENMQ_VERSION}/mq/bin
+ENV TOPIC_NAME devobst
+
+USER root
+
+# install bash and curl on alpine linux
+RUN apk add --no-cache --update bash
+
+# create openmq user and directory
+RUN adduser -D -h /home/openmq -u 1001 -s /bin/bash openmq \
+    && mkdir -p ${OPENMQ_LOCATION} \
+    && chown -R openmq:openmq ${OPENMQ_LOCATION} 
+
+# copy entrypoint script from actual directory into image
+COPY docker-entrypoint.sh /docker-entrypoint/docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint/docker-entrypoint.sh
+
+# copy the openmq zip file from actual directory into image
+COPY ${OPENMQ_ARCHIVE} ${OPENMQ_LOCATION}/${OPENMQ_ARCHIVE}
+
+# switch to openmq user and working directory
+USER openmq
+WORKDIR ${OPENMQ_LOCATION}
+
+# unzip openmq and remove archive
+RUN unzip $OPENMQ_ARCHIVE \
+    && rm $OPENMQ_ARCHIVE \
+    && echo imq.imqcmd.password=admin > password.txt
+
+EXPOSE 7676
+
+ENTRYPOINT ["/docker-entrypoint/docker-entrypoint.sh"]

@@ -1,0 +1,51 @@
+##########################################
+#
+# Payara 4 Full - Image (4.1.1)
+# Based on Java 8
+#
+##########################################
+
+FROM hackathon-ubuntu-16.04-java-8-jdk
+
+MAINTAINER Ken Brucksch <ken.brucksch@fntsoftware.com>
+
+# Login for admin-console
+ENV ADMIN_USER admin
+ENV ADMIN_PASSWORD password
+
+# Environment variables for database connection pool
+ENV DB_USER devobst_catalog
+ENV DB_PASSWORD devobst_catalog
+ENV DB_SERVER_NAME postgres-for-payara
+ENV DB_PORT 5432
+ENV DB_NAME devobst_catalog
+ENV CONNECTION_POOLNAME devobst_catalog
+ENV CONNECTION_RESOURCE_NAME jdbc/devobst-catalog
+ENV MQHOST localhost
+ENV MQPORT 7676
+
+# Copy Payara-Server and start/deploy script
+COPY payara41 /usr/share/payara41
+COPY start-payara-service.sh /usr/share/payara41/bin/start-payara-service.sh
+
+# Add JDBC Driver(s)
+COPY jdbc/* /usr/share/payara41/glassfish/lib/
+
+# Installation
+RUN apt-get -y update \
+    && apt-get -y upgrade \    
+    && mkdir -p /home/payara/.gfclient \
+    && addgroup --system payara \
+    && useradd --system -s /bin/bash -g payara payara \
+    && chown -R payara:payara /usr/share/payara41 \
+    && chown -R payara:payara /home/payara \
+    && chmod +x /usr/share/payara41/bin/start-payara-service.sh \
+
+    # Configuartion
+    && echo "payara soft nofile 32768" >> /etc/security/limits.conf \
+    && echo "payara hard nofile 65536" >> /etc/security/limits.conf
+
+# Switch to created user and working directory
+USER payara
+WORKDIR /usr/share/payara41/bin
+CMD ./start-payara-service.sh
